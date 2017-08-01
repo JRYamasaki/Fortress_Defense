@@ -8,15 +8,17 @@ public class AddTextures : MonoBehaviour
 
     void Start()
     {
-        Material newMat = Resources.Load("Concrete pattern 06", typeof(Material)) as Material;
-        objectsToApplyMaterialTo = GameObject.FindGameObjectsWithTag("BuildingMaterial");
+        SetMaterials("Concrete pattern 06", "BuildingMaterial");
+    }
+
+    void SetMaterials(string materialName, string targetTag)
+    {
+        Material newMat = Resources.Load(materialName, typeof(Material)) as Material;
+        objectsToApplyMaterialTo = GameObject.FindGameObjectsWithTag(targetTag);
 
         foreach (GameObject obj in objectsToApplyMaterialTo)
         {
             obj.GetComponent<Renderer>().material = newMat;
         }
-
-        //GameObject structure = GameObject.FindWithTag("Struct1");
-        //structure.GetComponent<Renderer>().material = newMat;
     }
 }

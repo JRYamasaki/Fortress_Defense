@@ -47301,7 +47301,7 @@ GameObject:
   - component: {fileID: 991230817}
   - component: {fileID: 991230816}
   m_Layer: 0
-  m_Name: GameSetterUpper
+  m_Name: GameSetter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
