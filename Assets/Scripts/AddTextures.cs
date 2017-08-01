@@ -8,17 +8,27 @@ public class AddTextures : MonoBehaviour
 
     void Start()
     {
-        SetMaterials("Concrete pattern 06", "BuildingMaterial");
+        objectsToApplyMaterialTo = GameObject.FindGameObjectsWithTag("BuildingMaterial");
+        foreach(GameObject obj in objectsToApplyMaterialTo)
+        {
+            SetMaterialsOfChildren(obj.transform, "Concrete pattern 06");
+        }
     }
 
-    void SetMaterials(string materialName, string targetTag)
+    void SetMaterialsOfChildren(Transform obj, string materialName)
     {
-        Material newMat = Resources.Load(materialName, typeof(Material)) as Material;
-        objectsToApplyMaterialTo = GameObject.FindGameObjectsWithTag(targetTag);
-
-        foreach (GameObject obj in objectsToApplyMaterialTo)
+        if(obj.childCount == 0)
+        {   //Set the material for the child
+            obj.GetComponent<Renderer>().material = Resources.Load(materialName, typeof(Material)) as Material;
+        }
+        else //Keep looking for the children recursively
         {
-            obj.GetComponent<Renderer>().material = newMat;
+            int numChildren = obj.childCount;
+            print("Still children");
+            foreach(Transform child in obj)
+            {
+                SetMaterialsOfChildren(child, materialName);
+            }
         }
     }
 }
