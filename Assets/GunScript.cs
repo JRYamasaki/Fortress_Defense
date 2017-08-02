@@ -29,6 +29,7 @@ public class GunScript : MonoBehaviour {
     private void Start()
     {
         currentMagazineCapacity = maxMagazineCapacity;
+        ammoText.color = Color.black;
         ammoText.text = "Ammo: 20/20";
     }
 
