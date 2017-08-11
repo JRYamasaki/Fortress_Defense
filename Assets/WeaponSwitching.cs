@@ -8,7 +8,6 @@ public class WeaponSwitching : GunScript
 	void Start ()
     {
         selectWeapon();
-        ammoText.text = "Ammo: " + currentMagazineCapacity + "/20";
     }
 	
 	// Update is called once per frame
