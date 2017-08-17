@@ -15,7 +15,7 @@ public class SceneState : MonoBehaviour {
 	private static SceneState instance;
 
 	/**Game objects that are relevant to the clients of this class.*/
-	//
+	//Game object used as the player.
 	public GameObject player;
 
 
@@ -36,7 +36,7 @@ public class SceneState : MonoBehaviour {
 	}
 
 
-	/**Returns the transform of the player game object.*/
+	/**Returns the position of the player game object.*/
 	public Vector3 getPositionOfPlayer()
 	{
 		return this.player.transform.position;
