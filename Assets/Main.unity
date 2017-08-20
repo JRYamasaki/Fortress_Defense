@@ -10636,6 +10636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1527027369}
+  ground: {fileID: 1983638745}
 --- !u!4 &242165046
 Transform:
   m_ObjectHideFlags: 0
@@ -12727,7 +12728,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400116, guid: e5836d050fdb354479bcd0d285bf2f22, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.691865
+      value: -490
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: e5836d050fdb354479bcd0d285bf2f22, type: 2}
       propertyPath: m_LocalPosition.y
@@ -12902,7 +12903,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -576064084
+  randomSeed: -1311000373
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -19215,6 +19216,21 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114797286963375838, guid: 4bf472e7304aceb49b5ddf0045bed796,
+        type: 2}
+      propertyPath: gunShot
+      value: 
+      objectReference: {fileID: 1357202154}
+    - target: {fileID: 114797286963375838, guid: 4bf472e7304aceb49b5ddf0045bed796,
+        type: 2}
+      propertyPath: reload
+      value: 
+      objectReference: {fileID: 1357202154}
+    - target: {fileID: 114797286963375838, guid: 4bf472e7304aceb49b5ddf0045bed796,
+        type: 2}
+      propertyPath: impactEffect
+      value: 
+      objectReference: {fileID: 100000, guid: 04f6fcdb8fb54e24599e1b6a0c6b7dee, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_IsPrefabParent: 0
@@ -19458,7 +19474,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1281287496
+  randomSeed: 1997476973
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -32284,12 +32300,12 @@ MonoBehaviour:
   maxMagazineCapacity: 20
   reloadTime: 1
   animator: {fileID: 1357202156}
-  gunShot: {fileID: 1357202155}
+  gunShot: {fileID: 1357202154}
   reload: {fileID: 1357202154}
   ammoText: {fileID: 1926552964}
   fpsCam: {fileID: 2031643239}
-  muzzleFlash: {fileID: 1765588869}
-  impactEffect: {fileID: 100002, guid: 180149b1a35449044a27b451e816d2de, type: 2}
+  muzzleFlash: {fileID: 0}
+  impactEffect: {fileID: 100000, guid: 04f6fcdb8fb54e24599e1b6a0c6b7dee, type: 3}
 --- !u!82 &1357202154
 AudioSource:
   m_ObjectHideFlags: 0
@@ -33604,13 +33620,13 @@ MonoBehaviour:
   fireRate: 15
   maxMagazineCapacity: 20
   reloadTime: 1
-  animator: {fileID: 1567020129}
-  gunShot: {fileID: 1567020127}
-  reload: {fileID: 1567020128}
-  ammoText: {fileID: 1926552964}
-  fpsCam: {fileID: 2031643239}
-  muzzleFlash: {fileID: 1682222846}
-  impactEffect: {fileID: 100006, guid: 0438351a6e6422d43a09930e9be00ee9, type: 2}
+  animator: {fileID: 0}
+  gunShot: {fileID: 0}
+  reload: {fileID: 0}
+  ammoText: {fileID: 0}
+  fpsCam: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  impactEffect: {fileID: 0}
 --- !u!82 &1567020127
 AudioSource:
   m_ObjectHideFlags: 0
@@ -34081,11 +34097,6 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshOptimized: 0
---- !u!198 &1682222846 stripped
-ParticleSystem:
-  m_PrefabParentObject: {fileID: 19800004, guid: e14044c220d48bf489cdf231406ffcb1,
-    type: 2}
-  m_PrefabInternal: {fileID: 1187488257}
 --- !u!43 &1711445462
 Mesh:
   m_ObjectHideFlags: 0
@@ -34486,7 +34497,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -723769104
+  randomSeed: -184139836
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -38169,7 +38180,7 @@ GameObject:
   - component: {fileID: 1971117911}
   - component: {fileID: 1971117910}
   m_Layer: 5
-  m_Name: Text
+  m_Name: LabelForDebugging
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38244,7 +38255,7 @@ GameObject:
   - component: {fileID: 1983638747}
   - component: {fileID: 1983638746}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: QuadGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38423,7 +38434,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-50628
+  m_Name: pb_Mesh15038
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
