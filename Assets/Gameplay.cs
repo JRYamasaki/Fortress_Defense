@@ -22,11 +22,11 @@ public class Gameplay : MonoBehaviour
 	/// <summary>
 	/// Determines the number of enemies that will be present at any given point of the game. 
 	/// </summary>
-	public const int NUM_OF_ENEMIES_AT_ANY_GIVEN_POINT = 4;
+	public const int NUM_OF_ENEMIES_AT_ANY_GIVEN_POINT = 50;
 	/// <summary>
 	/// Enemies will try to get to this point in the map. If any of them does, the game should be terminated and the player has lost.
 	/// </summary>
-	public Vector3 GOAL_END_POINT_FOR_ENEMY = SceneState.getInstance().getCentreOfTheScene();
+	private Vector3 GOAL_END_POINT_FOR_ENEMY = SceneState.getInstance().getCentreOfTheScene();
 	/// <summary>
 	/// If any of the enemies' positions is within this much radius of the goal end point's position, defined in this class,
 	/// the enemy is considered to have reached the goal position.
@@ -59,6 +59,7 @@ public class Gameplay : MonoBehaviour
 	private bool gameOver()
 	{
 		//TODO: this is a stub. Implement it;
+		return false;
 	}
 
 	/// <summary>
@@ -80,7 +81,7 @@ public class Gameplay : MonoBehaviour
 		//Declare variables used for creating the enemy's position:
 		float zCoordinate = 0.0f, xCoordinate = 0.0f; //y value of position is always 0. Default values provided because compiler was complaining.
 		//Visualize a view of the ground from above. You can see a plane. Imagine a smaller plane contained in it.
-		//Enemies will be inserted on the edge of the smaller plane. To simply the calculation of the enemy's position,
+		//Enemies will be inserted on the edge of the smaller plane. To simplify the calculation of the enemy's position,
 		//pick one of two situations: the enemy's position is either on the top or bottom side of the plane, OR on the
 		//right or left side of it. If the randomly generated value is on [0, 5], the enemy position is either on the
 		//top or the bottom; if it is on [5, 10], it is on either the left or the right.
@@ -155,6 +156,16 @@ public class Gameplay : MonoBehaviour
 	private bool hasValidState()
 	{
 		//TODO: Implement
+		return true;
+	}
+
+	/// <summary>
+	/// Gets the goal end point for enemies.
+	/// </summary>
+	/// <returns>The goal end point for enemies.</returns>
+	public Vector3 getGoalEndPointForEnemies()
+	{
+		return this.GOAL_END_POINT_FOR_ENEMY;
 	}
 
 	// Use this for initialization

@@ -1,15 +1,16 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using AssemblyCSharp;
 
 
 /**This class is a representation of the game's scene, holding references to relevant game objects in it and providing accesor
-methods so game objects can interact with their scene and the objects in it. Since there is only one scene and its state is always the same at
+methods so game objects can interact with their scene (the objects in it). Since there is only one scene and its state is always the same at
 a given point in time, this class follows the singleton design pattern.
-@author Ruben Gonzalez.
+@author https://github.com/rubenprograms.
 */
-public class SceneState : MonoBehaviour {
+public class SceneState : MonoBehaviour 
+{
 
 	//One and only instance of the class:
 	private static SceneState instance;
@@ -33,7 +34,7 @@ public class SceneState : MonoBehaviour {
 		for(int i = 0; i < Gameplay.NUM_OF_ENEMIES_AT_ANY_GIVEN_POINT; i++)
 		{
 			//enemyModel is the prefab for the enemy. getAnEnemyPosition returns a valid position for the enemy in the scene, as defined in
-			//Gameplay. Quaternion.identity returns an instante with the same rotation as the scene's axes.
+			//Gameplay. Quaternion.identity returns an instance with the same rotation as the scene's axes.
 			GameObject enemy = (GameObject)Instantiate (enemyModel, Gameplay.getInstance().getAnEnemyPosition(), Quaternion.identity);
 			this.addEnemy (enemy);
 		}
@@ -43,11 +44,27 @@ public class SceneState : MonoBehaviour {
 	/// Adds the provided enemy to this scene.
 	/// </summary>
 	/// <param name="enemy">Enemy to be added to the collection of enemies that this scene holds.</param>
-	private void addEnemy(GameObject enemy)
+	public void addEnemy(GameObject enemy)
 	{
-		this.enemies.Add (enemy);
-		enemy.GetComponent<AlienController> ().setScene(this);
-	
+		if (!(this.enemies.Contains (enemy))) 
+		{
+			this.enemies.Add (enemy);
+			//Make the enemy remember the scene that holds a reference to it:
+			enemy.GetComponent<AlienController> ().setScene (this);
+		}
+	}
+
+	/// <summary>
+	/// Removes the enemy.
+	/// </summary>
+	/// <param name="enemy">Enemy to be removed.</param>
+	public void removeEnemy(GameObject enemy)
+	{
+		if(this.enemies.Contains(enemy))
+		{
+			this.enemies.Remove (enemy);
+			enemy.GetComponent<AlienController>().setScene (null);
+		}
 	}
 
 	// Update is called once per frame
@@ -107,8 +124,11 @@ public class SceneState : MonoBehaviour {
 				scale = this.ground.transform.lossyScale.x;
 				break;
 			case RectTransform.Axis.Vertical: 
-				valueOfCentreCoordinate = groundCentre.z;
-				scale = this.ground.transform.lossyScale.z;
+				/*IMPORTANT NOTE: The orientation of the quad is in such a way that the *y* scale value
+				is used for the dimensions of the plane in the *z* axis. Thus, the centre and scale
+				for y are used, and not those for z.*/
+				valueOfCentreCoordinate = groundCentre.y;
+				scale = this.ground.transform.lossyScale.y;
 				break;
 			default: throw new PlayerPrefsException("In SceneState.getBoundaryValue(RectTransform.Axis, " +
 				"RectTransform.Axis): the provided axis is neither horizontal nor vertical.");
@@ -148,7 +168,7 @@ public class SceneState : MonoBehaviour {
 	/// Returns a boolean value indicating whether at least one enemy has reached the end point.
 	/// </summary>
 	/// <returns><c>true</c>, if enemy has reached the end point of the game as specified in Gameplay; <c>false</c> otherwise.</returns>
-	public void setAnEnemyHasReachedEndPoint()
+	public Boolean AnEnemyHasReachedEndPoint()
 	{
 		foreach(GameObject enemy in this.enemies)
 		{

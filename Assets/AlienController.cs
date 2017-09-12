@@ -29,16 +29,36 @@ public class AlienController : MonoBehaviour
 		this.animator = GetComponent<Animator> ();
 		this.charController = GetComponent<CharacterController> ();
 		this.reachedEndPoint = false;
+		this.scene = null;
 		
 	}
-	
+
 	// Update is called once per frame
 	void Update () 
 	{
+
+		//Generate a random number on [0, 1]
+		int option = Random.Range(0, 1); //TODO Make upper range 2 again.
+		//Based on the random number, make the alien do something:
+		switch(option)
+		{
+			//Make the alien walk toward the end point for enemies, as defined in Gameplay:
+			case 0: 
+				//Make this alien move only if it has not reached the end point:
+				if(!(this.hasReachedGoalPoint()))
+					this.walkToward (Gameplay.getInstance().getGoalEndPointForEnemies());
+				break;
+			//Make the alien idle in its current position:
+			case 1:
+			//TODO: Implement idle method
+				//this.idle ();
+				break;
+		}
+
 		//Check if the alien reached the goal end point:
 		this.updateStatusOfReachingEndPoint();
 
-
+		/**TODO: Probably get rid of this code.
 		//Control the game object based on user input:
 		//If user wants to displace vertically (forward or backward), do so:
 		if (Input.GetKey ("up") || Input.GetKey ("w") || Input.GetKey ("down") || Input.GetKey ("s")) {
@@ -62,6 +82,8 @@ public class AlienController : MonoBehaviour
 			string playersCoordinates = "[" + x + ", " + y + ", " + z + "]";
 			this.label.text = "The player's current coordinates are: " + playersCoordinates;
 		}
+
+		*/
 
 		
 	}
@@ -106,25 +128,62 @@ public class AlienController : MonoBehaviour
 	/// </summary>
 	private void updateStatusOfReachingEndPoint()
 	{
-		//Call some geometry class
-		fail();
-
+		//TODO: Implement
 		//Depending on the alien's current position, set the flag:
-		this.reachedEndPoint ;//= something ;
+		//this.reachedEndPoint ;//= something ;
 		
 	}
 
 	/// <summary>
-	/// Sets the provided scene to the scene which holds this alien. Only one scene can hold this alien and, after set, the alien
-	/// cannot be set to be contained in a different scene. 
+	/// Sets the provided scene to the scene which holds this alien. If another scene was set previously to calling this method with
+	/// another scene, the reference to this object in that scene is removed and this object's scene is the new provided scene.
 	/// </summary>
 	/// <param name="currentScene">Current scene.</param>
 	public void setScene(SceneState currentScene)
 	{
-		if (this.scene == null) 
+		if (this.scene != currentScene) 
 		{
+			if (this.scene != null) 
+			{
+				currentScene.removeEnemy (this.gameObject);
+			}
+
 			this.scene = currentScene;
+			if (this.scene != null) {
+				currentScene.addEnemy(this.gameObject);
+			}
 		}
+	}
+		
+	/// <summary>
+	/// Makes this object move toward the provided point.
+	/// </summary>
+	/// <param name="point">Point to which this alien must move.</param>
+	private void walkToward(Vector3 point)
+	{
+		//Rotate the alien so it "looks" toward point:
+		this.transform.LookAt (point);
+
+		//Turn on the flying animation that represents movement:
+		if(!(this.animator.GetBool("isFlying")))
+		{
+			this.animator.SetBool("isFlying", true);
+		}
+		//This alien is looking at the point. Translate this alien:
+		this.charController.Move(this.transform.forward * speed);
+
+		//TODO: Get rid of PROBABLY unnecessary code:
+		/**
+		//Find the offset between this alien's current position and the point:
+		Vector3 offset = point - this.transform.position;
+		//Get the direction that the alien must have:
+		Vector3 displacementDirection = offset.normalized;
+
+
+		//Turn on the flying animation that represents movement:
+		this.animator.SetBool("isFlying", true);
+		*/
+
 	}
 
 
